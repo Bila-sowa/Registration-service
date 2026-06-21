@@ -64,8 +64,9 @@ registerBtnElement.addEventListener("click", () => {
         phoneNumber: phoneNumberElement.value,
         password: passwordElement.value,
         dateOfBirth: dateElement.value,
+        dateOfRegister: dateOfRegister.toLocaleDateString(),
         gender: genderElement.value,
-        dateOfRegister: dateOfRegister.toLocaleDateString()
+        isLogin: false
     });
 
     save();
