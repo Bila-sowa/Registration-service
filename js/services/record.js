@@ -66,7 +66,8 @@ registerBtnElement.addEventListener("click", () => {
         dateOfBirth: dateElement.value,
         dateOfRegister: dateOfRegister.toLocaleDateString(),
         gender: genderElement.value,
-        isLogin: false
+        isLogin: false,
+        restored: false,
     });
 
     save();
