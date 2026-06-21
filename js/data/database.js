@@ -1,15 +1,17 @@
-let users = [];
+const db = {
+    users: []
+};
 const save = () => {
-    localStorage.setItem("dataBase", JSON.stringify(users))
+    localStorage.setItem("dataBase", JSON.stringify(db.users))
 }
 const load = () => {
     const uploadData = localStorage.getItem("dataBase")
     if(uploadData) {
-        users = JSON.parse(uploadData)
+        db.users = JSON.parse(uploadData)
     }
 };
 export {
-    users,
+    db,
     save,
     load
 }

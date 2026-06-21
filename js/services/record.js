@@ -1,73 +1,74 @@
-import {users, save, load} from "../data/database.js"
-load()
+import { db, save, load } from "../data/database.js";
+load();
+
 const emailElement = document.querySelector("#email-input");
 const phoneNumberElement = document.querySelector("#phone-number-input");
 const passwordElement = document.querySelector("#password-input");
 const dateElement = document.querySelector("#date-input");
-const resultElement = document.querySelector("#result")
-const genderElement = document.querySelector(`input[name="gender-input"]:checked`);
+const resultElement = document.querySelector("#result");
 const registerElement = document.querySelector("#register-button");
 
+const showError = (msg, el = null) => {
+    resultElement.innerHTML = msg;
+    resultElement.classList.add("error-message");
+    el?.classList.add("is-error");
+};
+
 const success = () => {
-    emailElement.value = ""
-    phoneNumberElement.value = ""
-    passwordElement.value = ""
-    dateElement.value = ""
-    genderElement.value = ""
+    emailElement.value = "";
+    phoneNumberElement.value = "";
+    passwordElement.value = "";
+    dateElement.value = "";
+    document.querySelectorAll(`input[name="gender-input"]`)
+        .forEach(el => el.checked = false);
 
     resultElement.innerHTML = "Account successfully created";
     resultElement.classList.add("success-message");
-}
+};
+
 document.addEventListener("input", () => {
     resultElement.innerHTML = "";
-    resultElement.classList.remove("error-message");
-    resultElement.classList.remove("success-message");
-    [ 
-        emailElement,
-        phoneNumberElement,
-        passwordElement, 
-        dateElement, 
-        genderElement
-    ].forEach(el => el.classList.remove("is-error"));
+    resultElement.classList.remove("error-message", "success-message");
+    [emailElement, phoneNumberElement, passwordElement, dateElement]
+        .forEach(el => el.classList.remove("is-error"));
+});
+// regular expressions
+emailElement.addEventListener("input", () => {
+    emailElement.value = emailElement.value.replace(/[^a-zA-Z0-9@._-]/g, "");
 });
 
+passwordElement.addEventListener("input", () => {
+    passwordElement.value = passwordElement.value.replace(/[^a-zA-Z0-9!@#$%^&*]/g, "");
+});
+
+phoneNumberElement.addEventListener("input", () => {
+    phoneNumberElement.value = phoneNumberElement.value.replace(/[^0-9+]/g, "");
+});
+dateElement.addEventListener("input", () => {
+    dateElement.value = dateElement.value.replace(/[^0-9./]/g, "");
+});
 registerElement.addEventListener("click", () => {
-    const genderActualValue = genderElement.value
-    const showError = (msg, el = null) => {
-        resultElement.innerHTML = msg;
-        resultElement.classList.add("error-message")
-        el?.classList.add("is-error");
-    };
+    const genderElement = document.querySelector(`input[name="gender-input"]:checked`);
 
     if (!emailElement.value) return showError("Please enter your email.", emailElement);
-    if (!emailElement.value.includes("@")) return showError("Email is invalid", emailElement)
+    if (!emailElement.value.includes("@")) return showError("Email is invalid.", emailElement);
     if (emailElement.value.length >= 32) return showError("Email is long.", emailElement);
     if (emailElement.value.length <= 3) return showError("Email is short.", emailElement);
     if (phoneNumberElement.value.length <= 7 || phoneNumberElement.value.length >= 15) return showError("Enter your phone number in the <br> following format: +1XXXXXXXXXX", phoneNumberElement);
     if (!passwordElement.value) return showError("Please enter your password.", passwordElement);
     if (passwordElement.value.length >= 64) return showError("Password is long.", passwordElement);
-    if (passwordElement.value.length >= 8) return showError("Password is short.", passwordElement);
+    if (passwordElement.value.length < 8) return showError("Password is short.", passwordElement);
     if (!dateElement.value) return showError("Please enter your date of birth.", dateElement);
-    if (!genderActualValue) return showError("Please enter your gender", genderElement);
+    if (!genderElement) return showError("Please select your gender.");
 
-    setTimeout(() => {
-        success()
-    }, 900)
+    db.users.push({
+        email: emailElement.value,
+        number: phoneNumberElement.value,
+        password: passwordElement.value,
+        dateOfBirth: dateElement.value,
+        gender: genderElement.value
+    });
 
-    users.push(new class {
-        constructor() {
-            this.email = emailElement.value.trim();
-            this.number = phoneNumberElement.value;
-            this.password = passwordElement.value;
-            this.dateOfBirth = dateElement.value;
-            this.gender = genderActualValue
-        }
-    }());
-
-    setTimeout(() => {
-        save()
-    }, 3000)
-    
-    console.log(users)
+    save();
+    success();
 });
-
