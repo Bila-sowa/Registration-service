@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register an account</title>
+    <link rel="preloader" href="./css/style.css">
+    <link rel="preloader" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="./js/services/record.js" defer type="module"></script>
+    <script src="./js/utils/script.js" defer type="module"></script>
+</head>
+<body>
+    <form>
+        <h1>Register an account</h1>
+        <div class="form-inputs">
+            <input id="email-input" placeholder="Enter you email" type="email" autocomplete="off">
+            <input id="phone-number-input" placeholder="Enter you phone number" autocomplete="off">
+            <input id="password-input" placeholder="Enter you password" autocomplete="off">
+            <p style="margin: 5px 0 0 0;">Enter your date of birth:</p>
+            <input id="date-input" type="text" id="dateOfBirth" placeholder="DD.MM.YYYY" maxlength="10" autocomplete="off">
+            <div class="gender-input">
+                <p>Enter your gender:</p>
+                <input id="gender-input-male" type="radio" name="gender-input" value="male">
+                <label for="gender-input-male">Male</label><br>
+
+                <input id="gender-input-female" type="radio" name="gender-input" value="female">
+                <label for="gender-input-female">Female</label><br>
+
+                <input id="gender-input-none" type="radio" name="gender-input" value="none" checked>
+                <label for="gender-input-none">I don't want to point out</label>
+            </div>
+            <p id="error" style="display: flex; flex-direction: column; font-size: 20px; color:red;"></p>
+        </div>        
+        
+        <button id="register-button" style="margin: 0px 0px 15px 0px;">Submit</button>
+        <p><a href="./login.html" target="_blank">Back to login to the account</a></p>
+    </form>
+</body>
+</html>
