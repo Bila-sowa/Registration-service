@@ -22,7 +22,7 @@ form {
     min-height: 600px;
     max-height: fit-content;
     max-width: 400px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 0.3px solid rgba(0, 0, 0, 0.2);
     background: rgba(27, 30, 39, 0.3);
 }
 p {
@@ -85,7 +85,13 @@ input[type=date] {
 input[type=radio] {
     margin: 5px 0 0 0;
 }
-.success {
+.success-message {
     border: 0.3px solid rgba(0, 0, 0, 0.2);
     font-size: 1.3rem;
+    color: white;
+}
+.error-message {
+    border: 0.3px solid rgba(0, 0, 0, 0.2);
+    font-size: 20px;
+    color:red;
 }

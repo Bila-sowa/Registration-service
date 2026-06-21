@@ -3,7 +3,7 @@ const emailElement = document.querySelector("#email-input");
 const phoneNumberElement = document.querySelector("#phone-number-input");
 const passwordElement = document.querySelector("#password-input");
 const dateElement = document.querySelector("#date-input");
-const errorElement = document.querySelector("#error")
+const resultElement = document.querySelector("#result")
 const genderElement = document.querySelector(`input[name="gender-input"]:checked`);
 const registerElement = document.querySelector("#register-button");
 
@@ -14,27 +14,26 @@ const success = () => {
     dateElement.value = ""
     genderElement.value = ""
 
-    const successElement = document.createElement("p");
-    successElement.textContent = "Account successfully created";
-    successElement.classList.add("success");
-    document.body.appendChild(successElement);
-    errorElement.before(successElement)
+    resultElement.innerHTML = "Account successfully created";
+    resultElement.classList.add("success-message");
 }
-success()
 document.addEventListener("input", () => {
-    errorElement.innerHTML = "";
+    resultElement.innerHTML = "";
+    resultElement.classList.remove("error-message");
+    resultElement.classList.remove("success-message");
     [ 
         emailElement,
         phoneNumberElement,
         passwordElement, 
         dateElement, 
-        genderElement,
+        genderElement
     ].forEach(el => el.classList.remove("is-error"));
 });
 
 registerElement.addEventListener("click", () => {
     const showError = (msg, el = null) => {
-        errorElement.innerHTML = msg;
+        resultElement.innerHTML = msg;
+        resultElement.classList.add("error-message")
         el?.classList.add("is-error");
     };
 
