@@ -85,6 +85,15 @@ input[type=date] {
 input[type=radio] {
     margin: 5px 0 0 0;
 }
+@keyframes highlight {
+    0%   { text-shadow: 0 0 0px transparent; }
+    50%  { text-shadow: 0 0 15px rgb(255, 255, 255); }
+    100% { text-shadow: 0 0 0px transparent; }
+}
+
+.highlight {
+    animation: highlight 1s ease-in-out;
+}
 .success-message {
     border: 0.3px solid rgba(0, 0, 0, 0.2);
     font-size: 1.3rem;

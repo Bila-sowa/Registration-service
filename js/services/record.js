@@ -6,15 +6,14 @@ const phoneNumberElement = document.querySelector("#phone-number-input");
 const passwordElement = document.querySelector("#password-input");
 const dateElement = document.querySelector("#date-input");
 const resultElement = document.querySelector("#result");
-const registerElement = document.querySelector("#register-button");
+const registerBtnElement = document.querySelector("#register-button");
 
 const showError = (msg, el = null) => {
     resultElement.innerHTML = msg;
     resultElement.classList.add("error-message");
     el?.classList.add("is-error");
 };
-
-const success = () => {
+const showSuccess = () => {
     emailElement.value = "";
     phoneNumberElement.value = "";
     passwordElement.value = "";
@@ -25,7 +24,6 @@ const success = () => {
     resultElement.innerHTML = "Account successfully created";
     resultElement.classList.add("success-message");
 };
-
 document.addEventListener("input", () => {
     resultElement.innerHTML = "";
     resultElement.classList.remove("error-message", "success-message");
@@ -44,31 +42,33 @@ passwordElement.addEventListener("input", () => {
 phoneNumberElement.addEventListener("input", () => {
     phoneNumberElement.value = phoneNumberElement.value.replace(/[^0-9+]/g, "");
 });
+
 dateElement.addEventListener("input", () => {
     dateElement.value = dateElement.value.replace(/[^0-9./]/g, "");
 });
-registerElement.addEventListener("click", () => {
-    const genderElement = document.querySelector(`input[name="gender-input"]:checked`);
 
+registerBtnElement.addEventListener("click", () => {
+    const genderElement = document.querySelector(`input[name="gender-input"]:checked`);
+    const dateOfRegister = new Date()
     if (!emailElement.value) return showError("Please enter your email.", emailElement);
     if (!emailElement.value.includes("@")) return showError("Email is invalid.", emailElement);
-    if (emailElement.value.length >= 32) return showError("Email is long.", emailElement);
     if (emailElement.value.length <= 3) return showError("Email is short.", emailElement);
-    if (phoneNumberElement.value.length <= 7 || phoneNumberElement.value.length >= 15) return showError("Enter your phone number in the <br> following format: +1XXXXXXXXXX", phoneNumberElement);
+    if (phoneNumberElement.value.length >= 15) return showError("Enter your phone number in the <br> following format: +1XXXXXXXXXX", phoneNumberElement);
     if (!passwordElement.value) return showError("Please enter your password.", passwordElement);
-    if (passwordElement.value.length >= 64) return showError("Password is long.", passwordElement);
     if (passwordElement.value.length < 8) return showError("Password is short.", passwordElement);
     if (!dateElement.value) return showError("Please enter your date of birth.", dateElement);
     if (!genderElement) return showError("Please select your gender.");
 
     db.users.push({
         email: emailElement.value,
-        number: phoneNumberElement.value,
+        phoneNumber: phoneNumberElement.value,
         password: passwordElement.value,
         dateOfBirth: dateElement.value,
-        gender: genderElement.value
+        gender: genderElement.value,
+        dateOfRegister: dateOfRegister.toLocaleDateString()
     });
 
     save();
-    success();
+    showSuccess();
 });
+
