@@ -8,18 +8,19 @@
     <link rel="preloader" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="./js/services/recovery.js"></script>
-    <script src="./js/utils/formDefender.js" defer></script>
+    <script src="./js/services/recovery.js" defer type="module"></script>
+    <script src="./js/utils/formDefender.js" defer type="module"></script>
 </head>
 <body>
     <form>
         <div class="form-inputs">
             <h1>Recovery Methods</h1>
             <p>Please select at least one recovery method <b>(choosing 2 methods will give a better result).</b></p><br>
+            <input id="login-input" placeholder="Enter you email or number" autocomplete="off" maxlength="32">
             <p>Please recall the date when you registered your account.</p>
             <input id="email-input" placeholder="DD.MM.YYYY" type="email" autocomplete="off" maxlength="32">
             <p>Please recall your last password, at least partially.</p>
-            <input id="phone-number-input" placeholder="Enter you phone number" autocomplete="off" maxlength="13"><br>
+            <input id="password-input" placeholder="password" autocomplete="off" maxlength="13"><br>
             <button id="submit-button">Submit an application.</button>
         </div>
     </form>

@@ -1,7 +1,5 @@
 import { db, save, load } from "../data/database.js";
 load();
-console.log(db.users);
-
 const loginElement = document.querySelector("#login-input");
 const passwordElement = document.querySelector("#password-input");
 const resultElement = document.querySelector("#result");
