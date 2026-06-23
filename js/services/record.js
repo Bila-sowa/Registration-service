@@ -48,12 +48,16 @@ dateElement.addEventListener("input", () => {
 });
 
 registerBtnElement.addEventListener("click", () => {
+    const findUserByEmail = db.users.find((user) => user.email === emailElement.value);
+    const findUserByPhoneNumber = db.users.find((user) => user.phoneNumber === phoneNumberElement.value);
     const genderElement = document.querySelector(`input[name="gender-input"]:checked`);
     const dateOfRegister = new Date()
     if (!emailElement.value) return showError("Please enter your email.", emailElement);
-    if (!emailElement.value.includes("@")) return showError("Email is invalid.", emailElement);
     if (emailElement.value.length <= 3) return showError("Email is short.", emailElement);
+    if (!emailElement.value.includes("@")) return showError("Email is invalid.", emailElement);
+    if (findUserByEmail) return showError("The email has already been <br> registered.", emailElement)
     if (phoneNumberElement.value.length < 3) return showError("Enter your phone number in the <br> following format: +1XXXXXXXXXX", phoneNumberElement);
+    if (findUserByPhoneNumber) return showError("The phone number has already <br> been registered.", phoneNumberElement)
     if (!passwordElement.value) return showError("Please enter your password.", passwordElement);
     if (passwordElement.value.length < 8) return showError("Password is short.", passwordElement);
     if (!dateElement.value) return showError("Please enter your date of birth.", dateElement);
