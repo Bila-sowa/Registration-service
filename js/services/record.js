@@ -53,7 +53,7 @@ registerBtnElement.addEventListener("click", () => {
     if (!emailElement.value) return showError("Please enter your email.", emailElement);
     if (!emailElement.value.includes("@")) return showError("Email is invalid.", emailElement);
     if (emailElement.value.length <= 3) return showError("Email is short.", emailElement);
-    if (phoneNumberElement.value.length >= 15) return showError("Enter your phone number in the <br> following format: +1XXXXXXXXXX", phoneNumberElement);
+    if (phoneNumberElement.value.length < 3) return showError("Enter your phone number in the <br> following format: +1XXXXXXXXXX", phoneNumberElement);
     if (!passwordElement.value) return showError("Please enter your password.", passwordElement);
     if (passwordElement.value.length < 8) return showError("Password is short.", passwordElement);
     if (!dateElement.value) return showError("Please enter your date of birth.", dateElement);
@@ -72,5 +72,7 @@ registerBtnElement.addEventListener("click", () => {
 
     save();
     showSuccess();
+
 });
+
 
